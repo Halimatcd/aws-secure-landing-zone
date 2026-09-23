@@ -1,0 +1,25 @@
+# Terraform state - NEVER commit, may contain secrets
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+
+# Terraform working files
+.terraform/
+crash.log
+crash.*.log
+
+# Variable files that may contain secrets
+*.tfvars
+*.tfvars.json
+!example.tfvars
+
+# AWS credentials - should never be in the repo anyway
+.aws/
+credentials
+*.pem
+*.key
+
+# OS / editor junk
+.DS_Store
+.vscode/
+*.swp
