@@ -1,6 +1,6 @@
 provider "aws" {
   region  = "us-east-1"
-  profile = "landingzone-admin"
+  profile = "landingzone-sso"
 }
 
 provider "aws" {
@@ -11,7 +11,7 @@ provider "aws" {
     role_arn = "arn:aws:iam::369992802183:role/OrganizationAccountAccessRole"
   }
 
-  profile = "landingzone-admin"
+  profile = "landingzone-sso"
 }
 
 provider "aws" {
@@ -22,7 +22,7 @@ provider "aws" {
     role_arn = "arn:aws:iam::746760141143:role/OrganizationAccountAccessRole"
   }
 
-  profile = "landingzone-admin"
+  profile = "landingzone-sso"
 }
 
 provider "aws" {
@@ -33,5 +33,5 @@ provider "aws" {
     role_arn = "arn:aws:iam::100678005500:role/OrganizationAccountAccessRole"
   }
 
-  profile = "landingzone-admin"
+  profile = "landingzone-sso"
 }

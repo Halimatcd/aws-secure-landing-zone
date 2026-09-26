@@ -12,7 +12,7 @@ terraform {
     bucket       = "landingzone-terraform-state-955364210974"
     key          = "secure-landing-zone/terraform.tfstate"
     region       = "us-east-1"
-    profile      = "landingzone-admin"
+    profile      = "landingzone-sso"
     use_lockfile = true
   }
 }

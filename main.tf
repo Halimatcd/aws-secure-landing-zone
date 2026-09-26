@@ -7,6 +7,7 @@ resource "aws_organizations_organization" "this" {
     "guardduty.amazonaws.com",
     "securityhub.amazonaws.com",
     "access-analyzer.amazonaws.com",
+    "sso.amazonaws.com",
   ]
 
   enabled_policy_types = [
