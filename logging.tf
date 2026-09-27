@@ -74,6 +74,7 @@ resource "aws_kms_key" "cloudtrail_logs" {
   description             = "Encrypts org-wide CloudTrail logs in Log Archive account"
   deletion_window_in_days = 7
   policy                  = data.aws_iam_policy_document.cloudtrail_kms_key_policy.json
+  enable_key_rotation     = true
 
   tags = {
     Purpose = "CloudTrail log encryption"
@@ -106,6 +107,23 @@ resource "aws_s3_bucket_versioning" "cloudtrail_logs" {
 
   versioning_configuration {
     status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_lifecycle_configuration" "cloudtrail_logs" {
+  provider = aws.log_archive
+  bucket   = aws_s3_bucket.cloudtrail_logs.id
+
+  rule {
+    id     = "archive-old-logs"
+    status = "Enabled"
+  
+    filter {}
+
+    transition {
+      days          = 90
+      storage_class = "GLACIER"
+    }
   }
 }
 
