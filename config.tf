@@ -92,3 +92,33 @@ resource "aws_iam_role_policy_attachment" "config_recorder" {
   role       = aws_iam_role.config_recorder.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWS_ConfigRole"
 }
+
+resource "aws_config_configuration_recorder" "this" {
+  provider = aws.audit_security
+  name     = "org-config-recorder"
+  role_arn = aws_iam_role.config_recorder.arn
+
+  recording_group {
+    all_supported                 = true
+    include_global_resource_types = true
+  }
+}
+
+resource "aws_config_delivery_channel" "this" {
+  provider       = aws.audit_security
+  name           = "org-config-delivery"
+  s3_bucket_name = aws_s3_bucket.config_logs.id
+
+  depends_on = [
+    aws_s3_bucket_policy.config_logs,
+    aws_config_configuration_recorder.this,
+  ]
+}
+
+resource "aws_config_configuration_recorder_status" "this" {
+  provider   = aws.audit_security
+  name       = aws_config_configuration_recorder.this.name
+  is_enabled = true
+
+  depends_on = [aws_config_delivery_channel.this]
+}
