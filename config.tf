@@ -122,3 +122,40 @@ resource "aws_config_configuration_recorder_status" "this" {
 
   depends_on = [aws_config_delivery_channel.this]
 }
+
+resource "aws_config_configuration_aggregator" "org" {
+  provider = aws.audit_security
+  name     = "org-config-aggregator"
+
+  organization_aggregation_source {
+    all_regions = true
+    role_arn    = aws_iam_role.config_aggregator.arn
+  }
+
+  depends_on = [aws_organizations_delegated_administrator.config]
+}
+
+data "aws_iam_policy_document" "config_aggregator_assume_role" {
+  provider = aws.audit_security
+
+  statement {
+    effect  = "Allow"
+    actions = ["sts:AssumeRole"]
+    principals {
+      type        = "Service"
+      identifiers = ["config.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "config_aggregator" {
+  provider           = aws.audit_security
+  name               = "config-aggregator-role"
+  assume_role_policy = data.aws_iam_policy_document.config_aggregator_assume_role.json
+}
+
+resource "aws_iam_role_policy_attachment" "config_aggregator" {
+  provider   = aws.audit_security
+  role       = aws_iam_role.config_aggregator.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSConfigRoleForOrganizations"
+}
