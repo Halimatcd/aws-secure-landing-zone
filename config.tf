@@ -52,7 +52,12 @@ data "aws_iam_policy_document" "config_bucket_policy" {
       identifiers = ["config.amazonaws.com"]
     }
     actions   = ["s3:PutObject"]
-    resources = ["${aws_s3_bucket.config_logs.arn}/AWSLogs/746760141143/Config/*"]
+    resources = [
+      "${aws_s3_bucket.config_logs.arn}/AWSLogs/746760141143/Config/*",
+      "${aws_s3_bucket.config_logs.arn}/AWSLogs/369992802183/Config/*",
+      "${aws_s3_bucket.config_logs.arn}/AWSLogs/100678005500/Config/*",
+      "${aws_s3_bucket.config_logs.arn}/AWSLogs/955364210974/Config/*",
+    ]
 
     condition {
       test     = "StringEquals"
@@ -158,4 +163,23 @@ resource "aws_iam_role_policy_attachment" "config_aggregator" {
   provider   = aws.audit_security
   role       = aws_iam_role.config_aggregator.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSConfigRoleForOrganizations"
+}
+module "config_recorder_log_archive" {
+  source      = "./modules/config-recorder"
+  providers   = { aws = aws.log_archive }
+  bucket_name = aws_s3_bucket.config_logs.id
+  depends_on  = [aws_s3_bucket_policy.config_logs]
+}
+
+module "config_recorder_workload_dev" {
+  source      = "./modules/config-recorder"
+  providers   = { aws = aws.workload_dev }
+  bucket_name = aws_s3_bucket.config_logs.id
+  depends_on  = [aws_s3_bucket_policy.config_logs]
+}
+
+module "config_recorder_mgmt" {
+  source      = "./modules/config-recorder"
+  bucket_name = aws_s3_bucket.config_logs.id
+  depends_on  = [aws_s3_bucket_policy.config_logs]
 }
