@@ -58,6 +58,7 @@ resource "aws_securityhub_member" "workload_dev" {
 resource "aws_securityhub_member" "management" {
   provider   = aws.audit_security
   account_id = aws_organizations_organization.this.master_account_id
+  invite = true
 
   depends_on = [
     aws_securityhub_organization_configuration.this,
