@@ -35,3 +35,9 @@ provider "aws" {
 
   profile = "landingzone-sso"
 }
+
+provider "aws" {
+  alias   = "ca_central"
+  region  = "ca-central-1"
+  profile = "landingzone-sso"
+}
