@@ -1,0 +1,13 @@
+Draft A: dense technical
+
+Built a four account AWS landing zone in Terraform with remote state and CI, using Organizations, three OUs, and four service control policies at the root to deny CloudTrail and Config tampering, non approved regions, and root user actions.
+Centralized audit logging with a multi region organization CloudTrail delivering to a KMS encrypted, versioned, deletion denied bucket in a dedicated log archive account, and validated integrity with 27 of 27 digest files and 220 of 220 log files passing.
+Delegated Config, GuardDuty, Security Hub (FSBP and CIS v1.4.0), and IAM Access Analyzer administration to a dedicated security account, with Config recorders in all four accounts feeding an organization aggregator.
+Replaced static IAM credentials with IAM Identity Center, deleted the bootstrap access key, and added Checkov scanning in GitHub Actions, triaging findings into fixes (key rotation, lifecycle rules) and documented exceptions.
+
+Draft B: business impact
+
+Designed and deployed a secure AWS foundation across four accounts, separating management, logging, security tooling, and workloads so one compromised account cannot erase the audit trail.
+Enforced guardrails organization wide with policies that block disabling audit logging, using unapproved regions, or acting as root, and proved them with live tests that returned explicit denies.
+Gave a security team a single place to see threats and misconfigurations across every account by centralizing GuardDuty, Security Hub, Config, and Access Analyzer under one delegated account.
+Removed long lived credentials in favor of short lived single sign on sessions, and documented a threat model mapped to MITRE ATT&CK with tested controls and stated residual risks.
