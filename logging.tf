@@ -10,7 +10,7 @@ data "aws_iam_policy_document" "cloudtrail_kms_key_policy" {
     effect = "Allow"
     principals {
       type        = "AWS"
-      identifiers = ["arn:aws:iam::369992802183:root"]
+      identifiers = ["arn:aws:iam::222222222222:root"]
     }
     actions   = ["kms:*"]
     resources = ["*"]
@@ -29,13 +29,13 @@ data "aws_iam_policy_document" "cloudtrail_kms_key_policy" {
     condition {
       test     = "StringEquals"
       variable = "aws:SourceArn"
-      values   = ["arn:aws:cloudtrail:us-east-1:955364210974:trail/org-landingzone-trail"]
+      values   = ["arn:aws:cloudtrail:us-east-1:111111111111:trail/org-landingzone-trail"]
     }
 
     condition {
       test     = "StringLike"
       variable = "kms:EncryptionContext:aws:cloudtrail:arn"
-      values   = ["arn:aws:cloudtrail:*:955364210974:trail/*"]
+      values   = ["arn:aws:cloudtrail:*:111111111111:trail/*"]
     }
   }
 
@@ -63,7 +63,7 @@ data "aws_iam_policy_document" "cloudtrail_kms_key_policy" {
     condition {
       test     = "StringEquals"
       variable = "aws:SourceArn"
-      values   = ["arn:aws:cloudtrail:us-east-1:955364210974:trail/org-landingzone-trail"]
+      values   = ["arn:aws:cloudtrail:us-east-1:111111111111:trail/org-landingzone-trail"]
     }
   }
 }
@@ -93,7 +93,7 @@ resource "aws_kms_alias" "cloudtrail_logs" {
 
 resource "aws_s3_bucket" "cloudtrail_logs" {
   provider      = aws.log_archive
-  bucket        = "landingzone-cloudtrail-logs-369992802183"
+  bucket        = "landingzone-cloudtrail-logs-222222222222"
   force_destroy = false
 
   tags = {
@@ -176,7 +176,7 @@ data "aws_iam_policy_document" "cloudtrail_bucket_policy" {
     condition {
       test     = "StringEquals"
       variable = "aws:SourceArn"
-      values   = ["arn:aws:cloudtrail:us-east-1:955364210974:trail/org-landingzone-trail"]
+      values   = ["arn:aws:cloudtrail:us-east-1:111111111111:trail/org-landingzone-trail"]
     }
   }
 
@@ -189,8 +189,8 @@ data "aws_iam_policy_document" "cloudtrail_bucket_policy" {
     }
     actions   = ["s3:PutObject"]
     resources = [
-	"${aws_s3_bucket.cloudtrail_logs.arn}/AWSLogs/955364210974/*",
-	"${aws_s3_bucket.cloudtrail_logs.arn}/AWSLogs/o-77d9ezfr6p/*",
+	"${aws_s3_bucket.cloudtrail_logs.arn}/AWSLogs/111111111111/*",
+	"${aws_s3_bucket.cloudtrail_logs.arn}/AWSLogs/o-example123/*",
     ]
 
     condition {
@@ -202,7 +202,7 @@ data "aws_iam_policy_document" "cloudtrail_bucket_policy" {
     condition {
       test     = "StringEquals"
       variable = "aws:SourceArn"
-      values   = ["arn:aws:cloudtrail:us-east-1:955364210974:trail/org-landingzone-trail"]
+      values   = ["arn:aws:cloudtrail:us-east-1:111111111111:trail/org-landingzone-trail"]
     }
   }
 

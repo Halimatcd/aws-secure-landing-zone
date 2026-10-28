@@ -32,7 +32,7 @@ resource "aws_organizations_organizational_unit" "workloads" {
 
 resource "aws_organizations_account" "log_archive" {
   name              = "log-archive"
-  email             = "aminuoluwatosin2000+logarchive@gmail.com"
+  email             = "you+logarchive@example.com"
   parent_id         = aws_organizations_organizational_unit.security.id
   close_on_deletion = false
 
@@ -43,7 +43,7 @@ resource "aws_organizations_account" "log_archive" {
 
 resource "aws_organizations_account" "audit_security" {
   name              = "audit-security"
-  email             = "aminuoluwatosin2000+audit@gmail.com"
+  email             = "you+audit@example.com"
   parent_id         = aws_organizations_organizational_unit.security.id
   close_on_deletion = false
 
@@ -54,7 +54,7 @@ resource "aws_organizations_account" "audit_security" {
 
 resource "aws_organizations_account" "workload_dev" {
   name              = "workload-dev"
-  email             = "aminuoluwatosin2000+workload@gmail.com"
+  email             = "you+workload@example.com"
   parent_id         = aws_organizations_organizational_unit.workloads.id
   close_on_deletion = false
 

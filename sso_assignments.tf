@@ -1,6 +1,6 @@
 locals {
-  sso_instance_arn         = "arn:aws:sso:::instance/ssoins-88246c32505d1882"
-  admin_permission_set_arn = "arn:aws:sso:::permissionSet/ssoins-88246c32505d1882/ps-882462cad924cc74"
+  sso_instance_arn         = "arn:aws:sso:::instance/ssoins-example"
+  admin_permission_set_arn = "arn:aws:sso:::permissionSet/ssoins-example/ps-882462cad924cc74"
   sso_user_id              = "0cdd55c8-b061-7016-ab6d-9c85a9612441"
 
   sso_member_accounts = {

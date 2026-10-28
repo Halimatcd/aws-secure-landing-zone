@@ -5,7 +5,7 @@ resource "aws_organizations_delegated_administrator" "config" {
 
 resource "aws_s3_bucket" "config_logs" {
   provider      = aws.audit_security
-  bucket        = "landingzone-config-logs-746760141143"
+  bucket        = "landingzone-config-logs-333333333333"
   force_destroy = false
 
   tags = {
@@ -53,10 +53,10 @@ data "aws_iam_policy_document" "config_bucket_policy" {
     }
     actions   = ["s3:PutObject"]
     resources = [
-      "${aws_s3_bucket.config_logs.arn}/AWSLogs/746760141143/Config/*",
-      "${aws_s3_bucket.config_logs.arn}/AWSLogs/369992802183/Config/*",
-      "${aws_s3_bucket.config_logs.arn}/AWSLogs/100678005500/Config/*",
-      "${aws_s3_bucket.config_logs.arn}/AWSLogs/955364210974/Config/*",
+      "${aws_s3_bucket.config_logs.arn}/AWSLogs/333333333333/Config/*",
+      "${aws_s3_bucket.config_logs.arn}/AWSLogs/222222222222/Config/*",
+      "${aws_s3_bucket.config_logs.arn}/AWSLogs/444444444444/Config/*",
+      "${aws_s3_bucket.config_logs.arn}/AWSLogs/111111111111/Config/*",
     ]
 
     condition {

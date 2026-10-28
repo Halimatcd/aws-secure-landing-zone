@@ -9,7 +9,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket       = "landingzone-terraform-state-955364210974"
+    bucket       = "landingzone-terraform-state-111111111111"
     key          = "secure-landing-zone/terraform.tfstate"
     region       = "us-east-1"
     profile      = "landingzone-sso"
